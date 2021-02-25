@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Compile Remove="Common\Services\ProductMessagePublisher.cs" />
-    <Compile Remove="Common\Services\SingleTonRabbitHutch.cs" />
   </ItemGroup>
 
   <ItemGroup>

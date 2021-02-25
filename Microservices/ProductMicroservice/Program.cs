@@ -13,8 +13,9 @@ namespace ProductMicroservice
     using ProductMicroservice.MessageBroker;
     using ProductMicroservice.Enums;
     using DeliVeggieSharedLibrary.Interfaces;
+    using ProductMicroservice.Model;
 
-    class Program  
+    class Program
     {
         static async Task Main(string[] args)
         {
@@ -23,8 +24,9 @@ namespace ProductMicroservice
                 var services = ConfigureServices();
                 var serviceProvider = services.BuildServiceProvider();
                 var productService = serviceProvider.GetRequiredService<ProductService>();
+                var rabbitMq = serviceProvider.GetRequiredService<IBus>();
 
-                await RabbitHutchSubscription.Subscription(productService);
+                await RabbitHutchSubscription.Subscription(productService, rabbitMq);
             }
             catch (Exception ex)
             {
@@ -45,11 +47,15 @@ namespace ProductMicroservice
             var cosmosDBConfig = new CosmosDBConfig();
             Configuration.GetSection(nameof(DBName.CosmosDb)).Bind(cosmosDBConfig);
 
+            var rabbitMqConfig = new RabbitMqConfig();
+            Configuration.GetSection(nameof(ConfigSection.RabbitMq)).Bind(rabbitMqConfig);
+
             var services = new ServiceCollection();
 
             services.AddScoped<IDbService, CosmosDbService>();
             services.AddTransient<IReductionCalculation, ReductionCalculation>();
             services.AddScoped<ProductService>();
+            services.AddSingleton(RabbitHutch.CreateBus(rabbitMqConfig.ConnectionString));
 
             services.AddSingleton(new CosmosClient(cosmosDBConfig.Account, cosmosDBConfig.Key));
             services.Configure<CosmosDBConfig>(Configuration.GetSection(nameof(DBName.CosmosDb)));

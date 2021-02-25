@@ -1,6 +1,9 @@
 namespace ProductService
 {
     using Application;
+    using Application.Model;
+    using DeliVeggieSharedLibrary.Model;
+    using EasyNetQ;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -26,6 +29,12 @@ namespace ProductService
                        .AllowAnyHeader();
             }));
             services.AddApplication();
+
+            var rabbitMqConfig = new RabbitMqConfig();
+            Configuration.GetSection(nameof(ConfigSection.RabbitMq)).Bind(rabbitMqConfig);
+
+            services.AddSingleton(RabbitHutch.CreateBus(rabbitMqConfig.ConnectionString));
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>

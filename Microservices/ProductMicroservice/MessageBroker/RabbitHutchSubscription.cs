@@ -5,16 +5,16 @@
     using System.Threading.Tasks;
     internal static class RabbitHutchSubscription
     {
-        public static async Task Subscription(Services.ProductService productService)
+        public static async Task Subscription(Services.ProductService productService,IBus rabbitMq)
         {
-            await SingleTonRabbitHutch.RabbitHutchObject.Rpc.RespondAsync<ProductsRequest, ProductsResponse>(
+            await rabbitMq.Rpc.RespondAsync<ProductsRequest, ProductsResponse>(
                 async (request) =>
                 {
                     var r = await productService.GetAllProductResponseAsync();
                     return r;
                 });
 
-            await SingleTonRabbitHutch.RabbitHutchObject.Rpc.RespondAsync<ProductDetailsRequest, ProductDetailsResponse>(
+            await rabbitMq.Rpc.RespondAsync<ProductDetailsRequest, ProductDetailsResponse>(
                 async (request) =>
                 {
                     return request.ProductId > 0 ?

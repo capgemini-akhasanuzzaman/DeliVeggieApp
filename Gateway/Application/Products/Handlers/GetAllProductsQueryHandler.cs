@@ -1,7 +1,6 @@
 ﻿
 namespace ProductService.Handlers
 {
-    using Application.Common.Services;
     using Application.Products.Queries;
     using DeliVeggieSharedLibrary.Models;
     using EasyNetQ;
@@ -10,10 +9,14 @@ namespace ProductService.Handlers
     using System.Threading.Tasks;
     internal sealed class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, ProductsResponse>
     {
+        private readonly IBus _rabbitMq;
+        public GetAllProductsQueryHandler(IBus rabbitMq)
+        {
+            _rabbitMq = rabbitMq;
+        }
         public async Task<ProductsResponse> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
-            var productResponse =  await SingleTonRabbitHutch
-                    .RabbitHutchObject.Rpc
+            var productResponse =  await _rabbitMq.Rpc
                     .RequestAsync<ProductsRequest, ProductsResponse>(new ProductsRequest{});
 
             return productResponse;

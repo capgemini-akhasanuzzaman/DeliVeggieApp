@@ -27,7 +27,7 @@
 	<ItemGroup>
 		<Folder Include="Common\Enums\" />
 		<Folder Include="Common\Interfaces\" />
-		<Folder Include="Common\Model\" />
+		<Folder Include="Common\Services\" />
 		<Folder Include="Products\Commands\" />
 	</ItemGroup>
 

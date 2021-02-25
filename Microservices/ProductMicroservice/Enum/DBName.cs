@@ -5,4 +5,9 @@
         CosmosDb,
         MongoDb
     }
+
+    public enum ConfigSection
+    {
+        RabbitMq
+    }
 }
