@@ -34,6 +34,7 @@ namespace ProductService
             Configuration.GetSection(nameof(ConfigSection.RabbitMq)).Bind(rabbitMqConfig);
 
             services.AddSingleton(RabbitHutch.CreateBus(rabbitMqConfig.ConnectionString));
+            services.Configure<RabbitMqConfig>(Configuration.GetSection(nameof(ConfigSection.RabbitMq)));
 
             services.AddControllers();
 

@@ -55,6 +55,7 @@ namespace ProductMicroservice
             services.AddScoped<IDbService, CosmosDbService>();
             services.AddTransient<IReductionCalculation, ReductionCalculation>();
             services.AddScoped<ProductService>();
+
             services.AddSingleton(RabbitHutch.CreateBus(rabbitMqConfig.ConnectionString));
 
             services.AddSingleton(new CosmosClient(cosmosDBConfig.Account, cosmosDBConfig.Key));
