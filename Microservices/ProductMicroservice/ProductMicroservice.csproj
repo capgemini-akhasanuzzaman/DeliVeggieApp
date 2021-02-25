@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="CosmosDBConnectionInitializer.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Remove="C:\Users\ahasanuz\.nuget\packages\microsoft.azure.cosmos\3.16.0\contentFiles\any\netstandard2.0\ThirdPartyNotice.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="EasyNetQ" Version="6.3.1" />
+		<PackageReference Include="Microsoft.Azure.Cosmos" Version="3.16.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
+		<PackageReference Include="Moq" Version="4.16.1" />
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>ProductMicroservice.UnitTest</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Gateway\DeliVeggieSharedLibrary\DeliVeggieSharedLibrary.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>

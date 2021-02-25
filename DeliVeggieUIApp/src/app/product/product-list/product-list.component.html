@@ -1,0 +1,17 @@
+<table class="table table-bordered">
+    <thead>
+        <th colspan="2">Product List</th>
+    </thead>
+    <tbody *ngIf="products?.length>0 ;">
+        <tr *ngFor="let product of products; let index = index">
+            <td>{{ index+1 }}</td>
+            <td><a routerLink="#" (click)="editProduct(product.productId)"> {{product.name}}</a></td>
+        </tr>
+
+    </tbody>
+    <tbody *ngIf="products?.length==0;">
+        <tr>
+            <td> No products found</td>
+        </tr>
+    </tbody>
+</table>
