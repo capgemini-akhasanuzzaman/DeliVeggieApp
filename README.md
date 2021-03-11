@@ -8,3 +8,5 @@ To run this application please do the followings:
 4. Then run the angular application => DeliVeggieUIApp 
               To configure the web api for the UI application please change the apiUrl in environment.ts file.
               e.g. apiUrl: 'http://localhost:portnumber/api/'
+
+N.B. DeliVeggieApp/Gateway/DeliVeggieSharedLibrary should eventually be a nuget package, It should be used across the application as a package. But for the time constraints, I didn't quite go that far to push it to nuget.
