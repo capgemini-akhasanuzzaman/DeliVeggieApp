@@ -31,3 +31,14 @@ services:
         - "9000:80"
       depends_on:
        - rabbitmqservice       
+    
+    deliveggieuiapp:
+      container_name: deliveggieuicontainer
+      build:
+        context: ./DeliVeggieUIApp
+        dockerfile: Dockerfile
+      restart: on-failure
+      ports:
+        - "5000:80"
+      depends_on:
+        - productservice       
